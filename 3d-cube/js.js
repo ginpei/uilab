@@ -15,16 +15,16 @@ document.querySelector('.ui-cube').onclick = function(event) {
 
 (function() {
 	var elVisibilities = document.querySelectorAll('.js-visibility');
-	var fn = function(event) {
-		event.stopPropagation();
-
-		var nth = event.currentTarget.value;
-		var visibility = event.currentTarget.checked;
-		var elSurface = document.querySelectorAll('.js-surface')[nth-1];
-		elSurface.style.display = (visibility ? '' : 'none');
+	var elSurfaces = document.querySelectorAll('.js-surface');
+	function updateVisivilities() {
+		for (var i=0, l=elSurfaces.length; i<l; i++) {
+			elSurfaces[i].style.display = (elVisibilities[i].checked ? '' : 'none');
+		}
 	};
+
 	for (var i=0, l=elVisibilities.length; i<l; i++) {
-		var elVisibility = elVisibilities[i];
-		elVisibility.onclick = fn;
+		elVisibilities[i].onclick = updateVisivilities;
 	}
+
+	updateVisivilities();
 })();
