@@ -1,0 +1,33 @@
+.ui-cube {
+	height: 100px;
+	perspective: 100px;
+	width: 100px;
+}
+.ui-cube-surface {
+	background-color: rgba(51, 153, 255, 1);
+	color: #fff;
+	font-family: sans-serif;
+	height: inherit;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transform-origin: center center -50px;
+	transition: transform 300ms;
+	width: inherit;
+}
+.ui-cube-surface:nth-child(1) {
+	transform: rotateX(0);
+	z-index: 2;
+}
+.ui-cube-surface:nth-child(2) {
+	transform: rotateX(-90deg);
+	z-index: 1;
+}
+.ui-cube:hover .ui-cube-surface:nth-child(1) {
+	transform: rotateX(90deg);
+	z-index: 1;
+}
+.ui-cube:hover .ui-cube-surface:nth-child(2) {
+	transform: rotateX(0);
+	z-index: 2;
+}
