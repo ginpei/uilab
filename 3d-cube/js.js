@@ -1,6 +1,6 @@
 // FIXME
 document.querySelector('.ui-cube').onclick = function(event) {
-	var LEN_SURFACE = 4;
+	var LEN_SURFACE = 6;
 
 	var elCube = event.currentTarget;
 	var surface = Number(elCube.getAttribute('data-uicube-surface')) || 1;
