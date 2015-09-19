@@ -16,6 +16,7 @@
 	width: inherit;
 	z-index: 1;
 }
+
 .ui-cube-surface:nth-child(1),
 [data-uicube-surface="1"] .ui-cube-surface:nth-child(1) {
 	transform: rotateX(0);
