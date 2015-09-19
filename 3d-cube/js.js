@@ -1,10 +1,12 @@
 // FIXME
 document.body.onclick = function(event) {
 	var elCube = document.querySelector('.ui-cube');
-	if (elCube.classList.contains('ui-cube-s2')) {
-		elCube.classList.remove('ui-cube-s2');
+	var surface = Number(elCube.getAttribute('data-uicube-surface')) || 1;
+
+	if (surface === 4) {
+		elCube.setAttribute('data-uicube-surface', 1);
 	}
 	else {
-		elCube.classList.add('ui-cube-s2');
+		elCube.setAttribute('data-uicube-surface', surface+1);
 	}
 };
