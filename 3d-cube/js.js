@@ -1,8 +1,8 @@
 (function() {
 	var elCube = document.querySelector('.ui-cube');
+	var elSurfaces = document.querySelectorAll('.js-surface');
 	var elVisibilities = document.querySelectorAll('.js-visibility');
 	var elFrontSurfaces = document.querySelectorAll('.js-frontSurface');
-	var elSurfaces = document.querySelectorAll('.js-surface');
 
 	elCube.onclick = function(event) {
 		var LEN_SURFACE = 6;
