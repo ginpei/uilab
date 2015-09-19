@@ -1,13 +1,18 @@
+/* Design */
+.surface {
+	background-color: rgba(51, 153, 255, 0.3);
+	border: solid 1px #006;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+/* UI */
 .ui-cube {
 	height: 100px;
 	perspective: 100px;
 	width: 100px;
 }
 .ui-cube-surface {
-	background-color: rgba(51, 153, 255, 0.3);
-	border: solid 1px #006;
-	color: #fff;
-	font-family: sans-serif;
 	height: inherit;
 	left: 0;
 	position: absolute;
