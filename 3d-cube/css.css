@@ -2,8 +2,10 @@
 .surface {
 	background-color: rgba(51, 153, 255, 0.3);
 	border: solid 1px #006;
-	color: #fff;
+	color: #006;
+	font-size: 50px;
 	font-family: sans-serif;
+	text-shadow: 1px 1px #cff;
 }
 
 /* UI */
