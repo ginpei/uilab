@@ -1,10 +1,11 @@
 (function() {
 	var elCube = document.querySelector('.ui-cube');
 	var elSurfaces = document.querySelectorAll('.js-surface');
+	var elShowNextSurface = document.querySelector('.js-showNextSurface');
 	var elVisibilities = document.querySelectorAll('.js-visibility');
 	var elFrontSurfaces = document.querySelectorAll('.js-frontSurface');
 
-	elCube.onclick = function(event) {
+	elShowNextSurface.onclick = function(event) {
 		var LEN_SURFACE = 6;
 
 		var curSurface = Number(elCube.getAttribute('data-uicube-surface')) || 1;  // 1-6
