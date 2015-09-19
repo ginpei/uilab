@@ -17,13 +17,20 @@
 		elFrontSurfaces[index].checked = true;
 	}
 
+	function updateFront(event) {
+		var elFrontSurface = event.currentTarget;
+		var number = elFrontSurface.value;
+		setFrontIndex(number-1);
+	}
+
 	function updateVisivilities() {
 		for (var i=0, l=elSurfaces.length; i<l; i++) {
 			elSurfaces[i].style.display = (elVisibilities[i].checked ? '' : 'none');
 		}
 	};
 
-	for (var i=0, l=elVisibilities.length; i<l; i++) {
+	for (var i=0, l=elSurfaces.length; i<l; i++) {
+		elFrontSurfaces[i].onclick = updateFront;
 		elVisibilities[i].onclick = updateVisivilities;
 	}
 
