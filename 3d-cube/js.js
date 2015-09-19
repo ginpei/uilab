@@ -9,9 +9,13 @@
 
 		var curSurface = Number(elCube.getAttribute('data-uicube-surface')) || 1;  // 1-6
 		var index = (curSurface) % LEN_SURFACE;  // 0-5
+		setFrontIndex(index);
+	};
+
+	function setFrontIndex(index) {
 		elCube.setAttribute('data-uicube-surface', index+1);
 		elFrontSurfaces[index].checked = true;
-	};
+	}
 
 	function updateVisivilities() {
 		for (var i=0, l=elSurfaces.length; i<l; i++) {
