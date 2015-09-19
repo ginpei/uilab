@@ -4,7 +4,8 @@
 	width: 100px;
 }
 .ui-cube-surface {
-	background-color: rgba(51, 153, 255, 0.5);
+	background-color: rgba(51, 153, 255, 0.3);
+	border: solid 1px #006;
 	color: #fff;
 	font-family: sans-serif;
 	height: inherit;
