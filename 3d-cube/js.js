@@ -1,9 +1,11 @@
+// By CSS
 (function() {
-	var elCube = document.querySelector('.ui-cube');
-	var elSurfaces = document.querySelectorAll('.js-surface');
-	var elShowNextSurface = document.querySelector('.js-showNextSurface');
-	var elVisibilities = document.querySelectorAll('.js-visibility');
-	var elFrontSurfaces = document.querySelectorAll('.js-frontSurface');
+	var elBase = document.querySelector('.js-byCss');
+	var elCube = elBase.querySelector('.ui-cube');
+	var elSurfaces = elBase.querySelectorAll('.js-surface');
+	var elShowNextSurface = elBase.querySelector('.js-showNextSurface');
+	var elVisibilities = elBase.querySelectorAll('.js-visibility');
+	var elFrontSurfaces = elBase.querySelectorAll('.js-frontSurface');
 
 	elShowNextSurface.onclick = function(event) {
 		var LEN_SURFACE = 7;
