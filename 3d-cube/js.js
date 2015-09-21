@@ -6,7 +6,7 @@
 	var elFrontSurfaces = document.querySelectorAll('.js-frontSurface');
 
 	elShowNextSurface.onclick = function(event) {
-		var LEN_SURFACE = 6;
+		var LEN_SURFACE = 7;
 
 		var curSurface = Number(elCube.getAttribute('data-uicube-surface')) || 1;  // 1-6
 		var index = (curSurface) % LEN_SURFACE;  // 0-5
@@ -34,6 +34,7 @@
 		elFrontSurfaces[i].onclick = updateFront;
 		elVisibilities[i].onclick = updateVisivilities;
 	}
+	elFrontSurfaces[6].onclick = updateFront;
 
 	updateVisivilities();
 })();
