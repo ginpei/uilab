@@ -166,3 +166,35 @@
 [data-uicube-surface="7"] .ui-cube-surface:nth-child(6) {
 	transform: rotateX(0deg) rotateY(-90deg) rotateZ(-270deg);
 }
+
+.ui-cube2-container {
+	height: 100px;
+	perspective: 300px;
+	width: 100px;
+}
+.ui-cube2-cube {
+	height: 100%;
+	position: relative;
+	transform: translateZ(-50px);
+	transform-origin: center center -50px;
+	transform-style: preserve-3d;
+	transition: transform 1000ms;
+	width: 100%;
+}
+.ui-cube2-cube:hover {
+	transform: rotateX(90deg) translateZ(-50px);
+}
+.ui-cube2-surface {
+	background-color: #9cf;
+	border: solid 2px #009;
+	box-sizing: border-box;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+}
+.ui-cube2-surface:nth-child(1) {
+	transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(50px);
+}
+.ui-cube2-surface:nth-child(2) {
+	transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg) translateZ(50px);
+}
