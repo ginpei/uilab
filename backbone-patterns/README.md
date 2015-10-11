@@ -44,11 +44,11 @@ NS.template = function(name) {
 
 ```js
 NS.FooView = NS.View.extend({
+
   _template: NS.template('FooView'),
+
   render: function() {
-    var data = { name:'Alice' }; //  this.model.toJSON()
-    var html = this._template(data);
-    this.setElement($(html));
+    this.setElement($(this._template({ name:'Alice' })));
     return this;
   }
 });
