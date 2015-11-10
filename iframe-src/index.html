@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>iframe src</title>
+	</head>
+	<body>
+		<iframe src="sub-1.html"></iframe>
+		<div class="js-pathname"></div>
+		<script>
+var elPathName = document.querySelector('.js-pathname');
+document.querySelector('iframe').addEventListener('load', function(event) {
+  var elIframe = event.currentTarget;
+	var contentWindow = elIframe.contentWindow;
+	var pathname;
+	try {
+		pathname = contentWindow.location.pathname;
+	}
+	catch (error) {
+		pathname = '<em>(External Page)</em> <a href="javascript:history.back();">Back</a>';
+	}
+  elPathName.innerHTML = pathname;
+});
+		</script>
+	</body>
+</html>
