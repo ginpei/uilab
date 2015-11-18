@@ -93,7 +93,7 @@ on:h.on,trigger:h[e]}),t}();
 			}
 		},
 
-		stopPremoving: function() {
+		stopMoving: function() {
 			this.status.set({
 				movingX: false,
 				movingY: false,
@@ -112,14 +112,14 @@ on:h.on,trigger:h[e]}),t}();
 		status_onchange_movingX: function(model, value) {
 			if (value) {
 console.log('x!');
-				this.stopPremoving();
+				this.stopMoving();
 			}
 		},
 
 		status_onchange_movingY: function(model, value) {
 			if (value) {
 console.log('y!');
-				this.stopPremoving();
+				this.stopMoving();
 			}
 		},
 
@@ -138,7 +138,7 @@ console.log('y!');
 
 		document_onmouseup: function(event) {
 			if (this.status.get('premoving')) {
-				this.stopPremoving();
+				this.stopMoving();
 			}
 		}
 	});
