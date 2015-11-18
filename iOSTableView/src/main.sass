@@ -1,0 +1,27 @@
+body
+
+$ui-tableView-subtitleColor: #999
+$ui-tableView-subtitleSize: 0.7em
+
+.ui-tableView
+	display: block
+	width: 100%
+
+	&>tbody
+		display: block
+
+	&-row
+		display: block
+
+		&:nth-child(2n)
+			background-color: #eee
+		&:nth-child(2n+1)
+
+	&-cell
+		display: block
+
+		&-title
+
+		&-subtitle
+			color: $ui-tableView-subtitleColor
+			font-size: $ui-tableView-subtitleSize
