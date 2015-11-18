@@ -99,6 +99,12 @@ on:h.on,trigger:h[e]}),t}();
 				movingY: false,
 				premoving: false
 			});
+			this.$el.css({ transform:'' });
+		},
+
+		updateMovingX: function(positions) {
+			var delta = positions.x - this.status.get('fromX');
+			this.$el.css({ transform:'translateX(' + delta + 'px)' });
 		},
 
 		getPositionsFromEvent: function(event) {
@@ -111,14 +117,12 @@ on:h.on,trigger:h[e]}),t}();
 
 		status_onchange_movingX: function(model, value) {
 			if (value) {
-console.log('x!');
-				this.stopMoving();
+				this.status.set({ premoving:false });
 			}
 		},
 
 		status_onchange_movingY: function(model, value) {
 			if (value) {
-console.log('y!');
 				this.stopMoving();
 			}
 		},
@@ -134,10 +138,14 @@ console.log('y!');
 				var positions = this.getPositionsFromEvent(event);
 				this.updatePremoving(positions);
 			}
+			else if (this.status.get('movingX')) {
+				var positions = this.getPositionsFromEvent(event);
+				this.updateMovingX(positions);
+			}
 		},
 
 		document_onmouseup: function(event) {
-			if (this.status.get('premoving')) {
+			if (this.status.get('premoving') || this.status.get('movingX')) {
 				this.stopMoving();
 			}
 		}
