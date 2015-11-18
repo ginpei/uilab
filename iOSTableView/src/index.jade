@@ -8,7 +8,7 @@ html(lang='en')
 
 		h1 iOS Table View
 
-		table.ui-tableView
+		table.ui-tableView.js-table
 			tbody
 				tr.ui-tableView-row
 					td.ui-tableView-cell.ui-tableView-cell-title Fox
@@ -25,3 +25,8 @@ html(lang='en')
 				tr.ui-tableView-row
 					td.ui-tableView-cell.ui-tableView-cell-title Fox
 					td.ui-tableView-cell.ui-tableView-cell-subtitle The quick brown fox jumps over the lazy dog
+
+		script(src="jquery.min.js")
+		script(src="src/main.js")
+		script.
+			new TableView({ el:$('.js-table') });

@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>iOS Table View</h1>
-    <table class="ui-tableView">
+    <table class="ui-tableView js-table">
       <tbody>
         <tr class="ui-tableView-row">
           <td class="ui-tableView-cell ui-tableView-cell-title">Fox</td>
@@ -31,5 +31,8 @@
         </tr>
       </tbody>
     </table>
+    <script src="jquery.min.js"></script>
+    <script src="src/main.js"></script>
+    <script>new TableView({ el:$('.js-table') });</script>
   </body>
 </html>
