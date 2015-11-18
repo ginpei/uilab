@@ -1,3 +1,6 @@
+body {
+  min-height: 5000px; }
+
 .ui-tableView {
   display: block;
   width: 100%; }
