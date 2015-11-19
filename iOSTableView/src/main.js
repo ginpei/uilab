@@ -25,46 +25,9 @@ on:h.on,trigger:h[e]}),t}();
 
 	// --------------------------------
 
-	var RowStatus = Osteoporosis.Model.extend({
-		THRESHOLD_X: 30,
-		THRESHOLD_Y: 30,
-
-		defaults: {
-			premoving: false,
-			movingX: false,
-			movingY: false
-		},
-
-		initialize: function(attributes, options) {
-			this._initializeAttributes(attributes);
-		},
-
-		_initializeAttributes: function(spec) {
-			var attr = this.attributes;
-			var def = this.defaults;
-			for (var p in def) {
-				if (!spec || !(p in spec)) {
-					attr[p] = def[p];
-				}
-			}
-		},
-
-		isOverThresholdX: function(positions) {
-			var delta = positions.x - this.get('fromX');
-			return (delta > this.THRESHOLD_X || delta < -this.THRESHOLD_X);
-		},
-
-		isOverThresholdY: function(positions) {
-			var delta = positions.y - this.get('fromY');
-			return (delta > this.THRESHOLD_Y || delta < -this.THRESHOLD_Y);
-		}
-	});
-
-	// --------------------------------
-
 	var RowView = Osteoporosis.View.extend({
 		initialize: function(options) {
-			var status = this.status = new RowStatus();
+			var status = this.status = new UISwipe.Status();
 
 			this.listenTo(status, 'change:movingX', this.status_onchange_movingX);
 			this.listenTo(status, 'change:movingY', this.status_onchange_movingY);
