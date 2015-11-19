@@ -42,8 +42,8 @@ on:h.on,trigger:h[e]}),t}();
 		_initializeAttributes: function(spec) {
 			var attr = this.attributes;
 			var def = this.defaults;
-			for (var p in attr) {
-				if (!(p in spec)) {
+			for (var p in def) {
+				if (!spec || !(p in spec)) {
 					attr[p] = def[p];
 				}
 			}
