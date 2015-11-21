@@ -78,11 +78,11 @@ on:h.on,trigger:h[e]}),t}();
 		 * Default values.
 		 */
 		defaults: {
-			fromX: null,
-			fromY: null,
-			premoving: false,
-			movingX: false,
-			movingY: false
+			fromX: NaN,  // the origin of actions
+			fromY: NaN,
+			premoving: false,  // whether user is flicking to do some action
+			movingX: false,  // whether the element is moving horizontaly
+			movingY: false  // whether the element is moving vertically
 		},
 
 		/**
@@ -113,19 +113,27 @@ on:h.on,trigger:h[e]}),t}();
 	 * @constructor
 	 */
 	UISwipe = Osteoporosis.View.extend({
-		initialize: function() {
-			var status = this.status = new UISwipe.Status();
+		initialize: function(options) {
+			// prepare models
+			this.status = new Status();
 
+			// listen models
+			var status = this.status;
 			this.listenTo(status, 'change:movingX', this.status_onchange_movingX);
 			this.listenTo(status, 'change:movingY', this.status_onchange_movingY);
 
-			var $el = this.$el;
+			// listen elements
 			var $document = $(document);
-			this.listenTo($el, 'mousedown', this.el_onmousedown);
+			this.listenTo(this.$el, 'mousedown', this.el_onmousedown);
 			this.listenTo($document, 'mousemove', this.document_onmousemove);
 			this.listenTo($document, 'mouseup', this.document_onmouseup);
 		},
 
+		/**
+		 * Start whatching user's operation.
+		 * @param {Number} positions.x
+		 * @param {Number} positions.y
+		 */
 		startPremoving: function(positions) {
 			this.status.set({
 				fromX: positions.x,
@@ -134,6 +142,11 @@ on:h.on,trigger:h[e]}),t}();
 			this.status.set({ premoving:true });
 		},
 
+		/**
+		 * Update status before actual behaviours.
+		 * @param {Number} positions.x
+		 * @param {Number} positions.y
+		 */
 		updatePremoving: function(positions) {
 			if (this.status.isOverThresholdY(positions)) {
 				this.status.set({ movingY:true });
@@ -143,6 +156,9 @@ on:h.on,trigger:h[e]}),t}();
 			}
 		},
 
+		/**
+		 * Reset moving flags.
+		 */
 		stopMoving: function() {
 			this.status.set({
 				movingX: false,
@@ -152,11 +168,21 @@ on:h.on,trigger:h[e]}),t}();
 			this.$el.css({ transform:'' });
 		},
 
+		/**
+		 * Update element position by the origin and current positions.
+		 * @param {Number} positions.x
+		 * @param {Number} positions.y
+		 */
 		updateMovingX: function(positions) {
 			var delta = positions.x - this.status.get('fromX');
 			this.$el.css({ transform:'translateX(' + delta + 'px)' });
 		},
 
+		/**
+		 * Get pointer positions from specified pointer event.
+		 * @param {Number} positions.x
+		 * @param {Number} positions.y
+		 */
 		getPositionsFromEvent: function(event) {
 			var positions = {
 				x: event.pageX,
