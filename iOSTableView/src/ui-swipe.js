@@ -54,6 +54,16 @@ on:h.on,trigger:h[e]}),t}();
 		}
 	};
 
+	/**
+	 * Bind own event listener to an event.
+	 * @param {Object} obj Which has `.on()` method.
+	 * @param {String} type
+	 * @param {Function} listener
+	 */
+	Osteoporosis.View.prototype.listenTo = function(obj, type, listener) {
+		obj.on(type, listener.bind(this));
+	};
+
 	// ----------------------------------------------------------------
 
 	/**
@@ -99,11 +109,95 @@ on:h.on,trigger:h[e]}),t}();
 	// ----------------------------------------------------------------
 
 	/**
-	 * WIP
+	 * UI for swiping.
 	 * @constructor
 	 */
 	UISwipe = Osteoporosis.View.extend({
 		initialize: function() {
+			var status = this.status = new UISwipe.Status();
+
+			this.listenTo(status, 'change:movingX', this.status_onchange_movingX);
+			this.listenTo(status, 'change:movingY', this.status_onchange_movingY);
+
+			var $el = this.$el;
+			var $document = $(document);
+			this.listenTo($el, 'mousedown', this.el_onmousedown);
+			this.listenTo($document, 'mousemove', this.document_onmousemove);
+			this.listenTo($document, 'mouseup', this.document_onmouseup);
+		},
+
+		startPremoving: function(positions) {
+			this.status.set({
+				fromX: positions.x,
+				fromY: positions.y
+			});
+			this.status.set({ premoving:true });
+		},
+
+		updatePremoving: function(positions) {
+			if (this.status.isOverThresholdY(positions)) {
+				this.status.set({ movingY:true });
+			}
+			else if (this.status.isOverThresholdX(positions)) {
+				this.status.set({ movingX:true });
+			}
+		},
+
+		stopMoving: function() {
+			this.status.set({
+				movingX: false,
+				movingY: false,
+				premoving: false
+			});
+			this.$el.css({ transform:'' });
+		},
+
+		updateMovingX: function(positions) {
+			var delta = positions.x - this.status.get('fromX');
+			this.$el.css({ transform:'translateX(' + delta + 'px)' });
+		},
+
+		getPositionsFromEvent: function(event) {
+			var positions = {
+				x: event.pageX,
+				y: event.pageY
+			};
+			return positions;
+		},
+
+		status_onchange_movingX: function(model, value) {
+			if (value) {
+				this.status.set({ premoving:false });
+			}
+		},
+
+		status_onchange_movingY: function(model, value) {
+			if (value) {
+				this.stopMoving();
+			}
+		},
+
+		el_onmousedown: function(event) {
+			event.preventDefault();
+			var positions = this.getPositionsFromEvent(event);
+			this.startPremoving(positions);
+		},
+
+		document_onmousemove: function(event) {
+			if (this.status.get('premoving')) {
+				var positions = this.getPositionsFromEvent(event);
+				this.updatePremoving(positions);
+			}
+			else if (this.status.get('movingX')) {
+				var positions = this.getPositionsFromEvent(event);
+				this.updateMovingX(positions);
+			}
+		},
+
+		document_onmouseup: function(event) {
+			if (this.status.get('premoving') || this.status.get('movingX')) {
+				this.stopMoving();
+			}
 		}
 	});
 
