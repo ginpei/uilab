@@ -6,17 +6,27 @@
 }
 #ui-selectTime .option {
 	border-radius: 50%;
+	cursor: pointer;
 	height: 2em;
 	left: -1em;
 	line-height: 2em;
 	position: absolute;
 	text-align: center;
 	top: -1em;
-	transform: rotate(  0deg) translateY( 0em);
-	transition: none;
 	width: 2em;
 }
-#ui-selectTime.active .option {
+#ui-selectTime .hour-outside {
+	transform: rotate(  0deg) translateY( 0em);
+	transition: none;
+}
+#ui-selectTime.active .hour-outside {
+	transition: transform 250ms;
+}
+#ui-selectTime .hour-outside:hover {
+	z-index: 1;
+}
+#ui-selectTime .hour-inside,
+#ui-selectTime .ampm {
 	transition: transform 250ms;
 }
 #ui-selectTime .am,
@@ -32,41 +42,24 @@
 	display: none;
 }
 
-#ui-selectTime.active .option:nth-child(1) {
-	transform: rotate( 30deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(2) {
-	transform: rotate( 60deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(3) {
-	transform: rotate( 90deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(4) {
-	transform: rotate(120deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(5) {
-	transform: rotate(150deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(6) {
-	transform: rotate(180deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(7) {
-	transform: rotate(210deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(8) {
-	transform: rotate(240deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(9) {
-	transform: rotate(270deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(10) {
-	transform: rotate(300deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(11) {
-	transform: rotate(330deg) translateY(-3em);
-}
-#ui-selectTime.active .option:nth-child(12) {
-	transform: rotate(360deg) translateY(-3em);
+#ui-selectTime.active .hour-outside:nth-child( 1) { transform:rotate( 30deg) translateY(-4em) rotate( -30deg); }
+#ui-selectTime.active .hour-outside:nth-child( 2) { transform:rotate( 60deg) translateY(-4em) rotate( -60deg); }
+#ui-selectTime.active .hour-outside:nth-child( 3) { transform:rotate( 90deg) translateY(-4em) rotate( -90deg); }
+#ui-selectTime.active .hour-outside:nth-child( 4) { transform:rotate(120deg) translateY(-4em) rotate(-120deg); }
+#ui-selectTime.active .hour-outside:nth-child( 5) { transform:rotate(150deg) translateY(-4em) rotate(-150deg); }
+#ui-selectTime.active .hour-outside:nth-child( 6) { transform:rotate(180deg) translateY(-4em) rotate(-180deg); }
+#ui-selectTime.active .hour-outside:nth-child( 7) { transform:rotate(210deg) translateY(-4em) rotate(-210deg); }
+#ui-selectTime.active .hour-outside:nth-child( 8) { transform:rotate(240deg) translateY(-4em) rotate(-240deg); }
+#ui-selectTime.active .hour-outside:nth-child( 9) { transform:rotate(270deg) translateY(-4em) rotate(-270deg); }
+#ui-selectTime.active .hour-outside:nth-child(10) { transform:rotate(300deg) translateY(-4em) rotate(-300deg); }
+#ui-selectTime.active .hour-outside:nth-child(11) { transform:rotate(330deg) translateY(-4em) rotate(-330deg); }
+#ui-selectTime.active .hour-outside:nth-child(12) { transform:rotate(360deg) translateY(-4em) rotate(-360deg); }
+
+#ui-selectTime.active .ampm:hover,
+#ui-selectTime.active .hour-outside:hover .hour-inside {
+	box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+	font-weight: bold;
+	transform: scale(1.1);
 }
 
 #ui-selectTime .option {
@@ -79,4 +72,8 @@
 }
 #ui-selectTime.b-pm .select-hour .option {
 	background-color: #fc9;
+}
+#ui-selectTime.active .ampm:hover,
+#ui-selectTime.active .hour-outside:hover .hour-inside {
+	border: solid 1px #99c;
 }
