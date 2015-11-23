@@ -17,8 +17,21 @@
 	width: 2em;
 }
 #ui-selectTime.active .option {
-	transition: transform 1s;
+	transition: transform 250ms;
 }
+#ui-selectTime .am,
+#ui-selectTime .pm {
+	height: 4em;
+	left: -2em;
+	line-height: 4em;
+	top: -2em;
+	width: 4em;
+}
+#ui-selectTime.b-am .pm,
+#ui-selectTime.b-pm .am {
+	display: none;
+}
+
 #ui-selectTime.active .option:nth-child(1) {
 	transform: rotate( 30deg) translateY(-3em);
 }
@@ -57,6 +70,13 @@
 }
 
 #ui-selectTime .option {
-	background-color: #9cf;
 	font-size: 20px;
+}
+#ui-selectTime.am {
+}
+#ui-selectTime.b-am .select-hour .option {
+	background-color: #9cf;
+}
+#ui-selectTime.b-pm .select-hour .option {
+	background-color: #fc9;
 }

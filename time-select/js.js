@@ -75,6 +75,8 @@
 	var $button = $('.js-selectTime');
 	var $block = $('#ui-selectTime');
 	var $hourSelection = $('#ui-selectTime .select-hour');
+	var $setAm = $('#ui-selectTime .setAm');
+	var $setPm = $('#ui-selectTime .setPm');
 
 	function getPosition(event) {
 		return {
@@ -101,5 +103,14 @@
 			top: position.y + 'px'
 		});
 		$block.addClass('active');
+	});
+
+	$setAm.on('click', function(event) {
+		$block.removeClass('b-pm');
+		$block.addClass('b-am');
+	});
+	$setPm.on('click', function(event) {
+		$block.removeClass('b-am');
+		$block.addClass('b-pm');
 	});
 })(window, document);
