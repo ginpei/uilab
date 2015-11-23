@@ -73,6 +73,7 @@
 
 	var $document = $(document);
 	var $button = $('.js-selectTime');
+	var $block = $('#ui-selectTime');
 	var $hourSelection = $('#ui-selectTime .select-hour');
 
 	function getPosition(event) {
@@ -83,23 +84,22 @@
 	}
 
 	$document.on('mousedown', function(event) {
-		$hourSelection
-			.css({ left:'-9999px' })
-			.removeClass('active');
+		$hourSelection.css({ left:'-9999px' })
+		$block.removeClass('active');
 	});
-	$hourSelection.on('mousedown', function(event) {
+	$block.on('mousedown', function(event) {
 		event.stopPropagation();
 		var $button = $(event.target);
 		console.log($button[0].firstChild.nodeValue);
 	});
 	$button.on('click', function(event) {
-		$hourSelection.removeClass('active');
+		$block.removeClass('active');
 
 		var position = getPosition(event);
 		$hourSelection.css({
 			left: position.x + 'px',
 			top: position.y + 'px'
 		});
-		$hourSelection.addClass('active');
+		$block.addClass('active');
 	});
 })(window, document);
