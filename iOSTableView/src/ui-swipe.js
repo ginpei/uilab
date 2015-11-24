@@ -153,6 +153,10 @@ on:h.on,trigger:h[e]}),t}();
 			}
 			else if (this.status.isOverThresholdX(positions)) {
 				this.status.set({ movingX:true });
+				this.status.set({
+					fromX: positions.x,
+					fromY: positions.y
+				});
 			}
 		},
 
