@@ -127,6 +127,9 @@ on:h.on,trigger:h[e]}),t}();
 			this.listenTo(this.$el, 'mousedown', this.el_onmousedown);
 			this.listenTo($document, 'mousemove', this.document_onmousemove);
 			this.listenTo($document, 'mouseup', this.document_onmouseup);
+			this.listenTo(this.$el, 'touchstart', this.el_ontouchstart);
+			this.listenTo($document, 'touchmove', this.document_ontouchmove);
+			this.listenTo($document, 'touchend', this.document_ontouchend);
 		},
 
 		/**
@@ -188,10 +191,21 @@ on:h.on,trigger:h[e]}),t}();
 		 * @param {Number} positions.y
 		 */
 		getPositionsFromEvent: function(event) {
-			var positions = {
-				x: event.pageX,
-				y: event.pageY
-			};
+			event = event.originalEvent || event;
+
+			var positions;
+			if (event.touches) {
+				positions = {
+					x: event.touches[0].pageX,
+					y: event.touches[0].pageY
+				};
+			}
+			else {
+				positions = {
+					x: event.pageX,
+					y: event.pageY
+				};
+			}
 			return positions;
 		},
 
@@ -225,6 +239,29 @@ on:h.on,trigger:h[e]}),t}();
 		},
 
 		document_onmouseup: function(event) {
+			if (this.status.get('premoving') || this.status.get('movingX')) {
+				this.stopMoving();
+			}
+		},
+
+		el_ontouchstart: function(event) {
+			var positions = this.getPositionsFromEvent(event);
+			this.startPremoving(positions);
+		},
+
+		document_ontouchmove: function(event) {
+			if (this.status.get('premoving')) {
+				var positions = this.getPositionsFromEvent(event);
+				this.updatePremoving(positions);
+			}
+			else if (this.status.get('movingX')) {
+				event.preventDefault();
+				var positions = this.getPositionsFromEvent(event);
+				this.updateMovingX(positions);
+			}
+		},
+
+		document_ontouchend: function(event) {
 			if (this.status.get('premoving') || this.status.get('movingX')) {
 				this.stopMoving();
 			}
