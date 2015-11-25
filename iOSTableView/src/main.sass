@@ -16,10 +16,6 @@ $ui-tableView-subtitleSize: 0.7em
 	&-row
 		display: block
 
-		&:nth-child(2n)
-			background-color: #eee
-		&:nth-child(2n+1)
-
 	&-cell
 		display: block
 
@@ -28,3 +24,11 @@ $ui-tableView-subtitleSize: 0.7em
 		&-subtitle
 			color: $ui-tableView-subtitleColor
 			font-size: $ui-tableView-subtitleSize
+
+// --------------------------------
+
+.ui-tableView
+	&-row
+		&:nth-child(2n)
+			background-color: #eee
+		&:nth-child(2n+1)

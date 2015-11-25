@@ -10,10 +10,11 @@ body {
     display: block; }
   .ui-tableView-row {
     display: block; }
-    .ui-tableView-row:nth-child(2n) {
-      background-color: #eee; }
   .ui-tableView-cell {
     display: block; }
     .ui-tableView-cell-subtitle {
       color: #999;
       font-size: 0.7em; }
+
+.ui-tableView-row:nth-child(2n) {
+  background-color: #eee; }
