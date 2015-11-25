@@ -9,27 +9,41 @@ body {
   .ui-tableView > tbody {
     display: block; }
   .ui-tableView-row {
+    background-color: #fff;
     display: block; }
   .ui-tableView-cell {
     display: block; }
     .ui-tableView-cell-subtitle {
       color: #999;
       font-size: 0.7em; }
-  .ui-tableView-delete {
-    background-color: #f00;
-    box-sizing: border-box;
-    color: #fff;
+  .ui-tableView-rowTools {
     display: block;
-    padding-right: 1em;
     position: absolute;
-    text-align: right;
     top: -9999px;
     width: 100%;
     z-index: -1; }
 
-.ui-tableView-row {
+.ui-tableView {
   border-color: #999;
-  border-style: none none solid;
+  border-style: solid none;
   border-width: 1px; }
-  .ui-tableView-row:first-child {
-    border-style: solid none; }
+  .ui-tableView-row {
+    border-color: #999;
+    border-style: solid none;
+    border-width: 1px;
+    margin-bottom: -1px; }
+    .ui-tableView-row:first-child {
+      border-top-style: none; }
+    .ui-tableView-row:last-child {
+      border-bottom-style: none;
+      margin-bottom: 0; }
+
+.rowTools-item {
+  background-color: #ccc;
+  border: none;
+  color: #fff;
+  float: right;
+  height: 100%;
+  padding: 0 1em; }
+  .rowTools-item-delete {
+    background-color: #f00; }

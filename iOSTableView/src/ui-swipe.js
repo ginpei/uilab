@@ -147,12 +147,12 @@ on:h.on,trigger:h[e]}),t}();
 		},
 
 		_initDelete: function() {
-			this.$delete = $('.ui-tableView-delete');
+			this.$rowTools = $('.ui-tableView-rowTools');
 
 			var $row = this.$el;
 			var pos = $row.offset();
 			var height = $row.outerHeight();
-			this.$delete.css({
+			this.$rowTools.css({
 				height: height,
 				lineHeight: height+'px',
 				left: pos.left,
