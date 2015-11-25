@@ -27,8 +27,9 @@ body {
     width: 100%;
     z-index: -1; }
 
-.ui-tableView-row:nth-child(2n) {
-  background-color: #eee; }
-
-.ui-tableView-row:nth-child(2n+1) {
-  background-color: #fff; }
+.ui-tableView-row {
+  border-color: #999;
+  border-style: none none solid;
+  border-width: 1px; }
+  .ui-tableView-row:first-child {
+    border-style: solid none; }

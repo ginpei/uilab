@@ -43,7 +43,9 @@ $ui-tableView-deleteColor: #fff
 
 .ui-tableView
 	&-row
-		&:nth-child(2n)
-			background-color: #eee
-		&:nth-child(2n+1)
-			background-color: #fff
+		border-color: #999
+		border-style: none none solid
+		border-width: 1px
+
+		&:first-child
+			border-style: solid none
