@@ -138,11 +138,26 @@ on:h.on,trigger:h[e]}),t}();
 		 * @param {Number} positions.y
 		 */
 		startPremoving: function(positions) {
+			this._initDelete();
 			this.status.set({
 				fromX: positions.x,
 				fromY: positions.y
 			});
 			this.status.set({ premoving:true });
+		},
+
+		_initDelete: function() {
+			this.$delete = $('.ui-tableView-delete');
+
+			var $row = this.$el;
+			var pos = $row.offset();
+			var height = $row.outerHeight();
+			this.$delete.css({
+				height: height,
+				lineHeight: height+'px',
+				left: pos.left,
+				top: pos.top
+			});
 		},
 
 		/**

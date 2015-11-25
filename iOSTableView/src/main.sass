@@ -4,6 +4,8 @@ body
 
 $ui-tableView-subtitleColor: #999
 $ui-tableView-subtitleSize: 0.7em
+$ui-tableView-deleteBackgroundColor: #f00
+$ui-tableView-deleteColor: #fff
 
 .ui-tableView
 	display: block
@@ -25,6 +27,18 @@ $ui-tableView-subtitleSize: 0.7em
 			color: $ui-tableView-subtitleColor
 			font-size: $ui-tableView-subtitleSize
 
+	&-delete
+		background-color: $ui-tableView-deleteBackgroundColor
+		box-sizing: border-box
+		color: $ui-tableView-deleteColor
+		display: block
+		padding-right: 1em
+		position: absolute
+		text-align: right
+		top: -9999px
+		width: 100%
+		z-index: -1
+
 // --------------------------------
 
 .ui-tableView
@@ -32,3 +46,4 @@ $ui-tableView-subtitleSize: 0.7em
 		&:nth-child(2n)
 			background-color: #eee
 		&:nth-child(2n+1)
+			background-color: #fff

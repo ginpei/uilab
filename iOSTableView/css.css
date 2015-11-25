@@ -15,6 +15,20 @@ body {
     .ui-tableView-cell-subtitle {
       color: #999;
       font-size: 0.7em; }
+  .ui-tableView-delete {
+    background-color: #f00;
+    box-sizing: border-box;
+    color: #fff;
+    display: block;
+    padding-right: 1em;
+    position: absolute;
+    text-align: right;
+    top: -9999px;
+    width: 100%;
+    z-index: -1; }
 
 .ui-tableView-row:nth-child(2n) {
   background-color: #eee; }
+
+.ui-tableView-row:nth-child(2n+1) {
+  background-color: #fff; }
