@@ -81,6 +81,8 @@ on:h.on,trigger:h[e]}),t}();
 			fromX: NaN,  // the origin of actions
 			fromY: NaN,
 			premoving: false,  // whether user is flicking to do some action
+			maxLeft: 0,
+			minLeft: 0,
 			movingX: false,  // whether the element is moving horizontaly
 			movingY: false  // whether the element is moving vertically
 		},
@@ -152,12 +154,14 @@ on:h.on,trigger:h[e]}),t}();
 			var $row = this.$el;
 			var pos = $row.offset();
 			var height = $row.outerHeight();
+			var width = $row.outerWidth();
 			this.$rowTools.css({
 				height: height,
 				lineHeight: height+'px',
-				left: pos.left,
 				top: pos.top
 			});
+
+			this.status.set({ minLeft:-this.$rowTools.outerWidth() });
 		},
 
 		/**
@@ -196,8 +200,11 @@ on:h.on,trigger:h[e]}),t}();
 		 * @param {Number} positions.y
 		 */
 		updateMovingX: function(positions) {
+			var minLeft = this.status.get('minLeft');
+			var maxLeft = this.status.get('maxLeft');
 			var delta = positions.x - this.status.get('fromX');
-			this.$el.css({ transform:'translateX(' + delta + 'px)' });
+			var left = Math.min(Math.max(delta, minLeft), maxLeft);
+			this.$el.css({ transform:'translateX(' + left + 'px)' });
 		},
 
 		/**
