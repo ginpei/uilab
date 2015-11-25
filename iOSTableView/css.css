@@ -1,8 +1,10 @@
 body {
+  margin: 0;
   min-height: 5000px; }
 
 .ui-tableView {
   display: block;
+  overflow: hidden;
   width: 100%; }
   .ui-tableView > tbody {
     display: block; }
