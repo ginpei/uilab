@@ -164,9 +164,11 @@ on:h.on,trigger:h[e]}),t}();
 			// listen elements
 			var $document = $(document);
 			this.listenTo(this.$el, 'mousedown', this.el_onmousedown);
+			this.listenTo($document, 'mousedown', this.document_onmousedown);
 			this.listenTo($document, 'mousemove', this.document_onmousemove);
 			this.listenTo($document, 'mouseup', this.document_onmouseup);
 			this.listenTo(this.$el, 'touchstart', this.el_ontouchstart);
+			this.listenTo($document, 'touchstart', this.document_ontouchstart);
 			this.listenTo($document, 'touchmove', this.document_ontouchmove);
 			this.listenTo($document, 'touchend', this.document_ontouchend);
 		},
@@ -235,9 +237,17 @@ on:h.on,trigger:h[e]}),t}();
 		},
 
 		/**
+		 * Update element styles by phases.
+		 */
+		_updatePhase: function() {
+			var status = this.status;
+			var $el = this.$el;
+
+			$el.toggleClass('ui-tableView-row--swiping', status.isSwiping());
+		},
+
+		/**
 		 * Update element position by the origin and current positions.
-		 * @param {Number} positions.x
-		 * @param {Number} positions.y
 		 */
 		_updateLeft: function() {
 			var status = this.status;
@@ -295,6 +305,8 @@ on:h.on,trigger:h[e]}),t}();
 			}
 			else if (phase === status.PHASE_SWIPEDOVER) {
 			}
+
+			this._updatePhase();
 		},
 
 		status_onchange_curX: function(status, value) {
@@ -313,7 +325,7 @@ on:h.on,trigger:h[e]}),t}();
 			}
 		},
 
-		status_onchange_deltaX: function(status, value) {
+		status_onchange_deltaX: function(model, value) {
 			this._updateLeft();
 		},
 
@@ -327,6 +339,14 @@ on:h.on,trigger:h[e]}),t}();
 				fromY: positions.y,
 				phase: status.PHASE_PREACTION
 			});
+		},
+
+		document_onmousedown: function(event) {
+			var status = this.status;
+
+			if (status.isSwipedOver()) {
+				status.set({ phase:status.PHASE_WAITING });
+			}
 		},
 
 		document_onmousemove: function(event) {
@@ -345,7 +365,13 @@ on:h.on,trigger:h[e]}),t}();
 		document_onmouseup: function(event) {
 			var status = this.status;
 
-			status.set({ phase:status.PHASE_WAITING });
+			if (status.get('deltaX') < status.get('minLeft')) {
+				status.set({ phase:status.PHASE_SWIPEDOVER });
+			}
+
+			if (!status.isSwipedOver()) {
+				status.set({ phase:status.PHASE_WAITING });
+			}
 		},
 
 		el_ontouchstart: function(event) {
@@ -357,6 +383,13 @@ on:h.on,trigger:h[e]}),t}();
 				fromY: positions.y,
 				phase: status.PHASE_PREACTION
 			});
+		},
+
+		document_ontouchstart: function(event) {
+			var status = this.status;
+			if (status.isSwipedOver()) {
+				status.set({ phase:status.PHASE_WAITING });
+			}
 		},
 
 		document_ontouchmove: function(event) {
@@ -379,7 +412,13 @@ on:h.on,trigger:h[e]}),t}();
 		document_ontouchend: function(event) {
 			var status = this.status;
 
-			status.set({ phase:status.PHASE_WAITING });
+			if (status.get('deltaX') < status.get('minLeft')) {
+				status.set({ phase:status.PHASE_SWIPEDOVER });
+			}
+
+			if (!status.isSwipedOver()) {
+				status.set({ phase:status.PHASE_WAITING });
+			}
 		}
 	});
 
