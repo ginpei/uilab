@@ -68,11 +68,24 @@ on:h.on,trigger:h[e]}),t}();
 
 	/**
 	 * Manage user action status.
+	 *
+	 * # Status
+	 *
+	 *   Waiting ---> Preaction ---> Swiping ---> SwipedOver
+	 *    ^            |              |            |
+	 *    |            v              v            |
+	 *    +------------+<-------------+<-----------+
+	 *
 	 * @constructor
 	 */
 	var Status = Osteoporosis.Model.extend({
 		THRESHOLD_X: 30,
 		THRESHOLD_Y: 30,
+
+		PHASE_WAITING: 'waiting',
+		PHASE_PREACTION: 'preaction',
+		PHASE_SWIPING: 'swiping',
+		PHASE_SWIPEDOVER: 'swipedOver',
 
 		/**
 		 * Default values.
@@ -80,30 +93,53 @@ on:h.on,trigger:h[e]}),t}();
 		defaults: {
 			fromX: NaN,  // the origin of actions
 			fromY: NaN,
-			premoving: false,  // whether user is flicking to do some action
-			maxLeft: 0,
-			minLeft: 0,
-			movingX: false,  // whether the element is moving horizontaly
-			movingY: false  // whether the element is moving vertically
+			phase: null,  // 'waiting', 'preaction', 'swiping', 'swipedOver'
+			// premoving: false,  // whether user is flicking to do some action
+			maxLeft: NaN,
+			minLeft: NaN,
+			// movingX: false,  // whether the element is moving horizontaly
+			// movingY: false  // whether the element is moving vertically
+		},
+
+		initialize: function(attributes, options) {
+			if (!this.get('phase')) {
+				this.set({ phase:this.PHASE_WAITING });
+			}
+		},
+
+		isWaiting: function() {
+			return (this.attributes.phase === this.PHASE_WAITING);
+		},
+
+		isPreaction: function() {
+			return (this.attributes.phase === this.PHASE_PREACTION);
+		},
+
+		isSwiping: function() {
+			return (this.attributes.phase === this.PHASE_SWIPING);
+		},
+
+		isSwipedOver: function() {
+			return (this.attributes.phase === this.PHASE_SWIPEDOVER);
 		},
 
 		/**
 		 * Whether specified positions overcome the threshold.
-		 * @param {Number} positions.x
 		 * @see #THRESHOLD_X
 		 */
-		isOverThresholdX: function(positions) {
-			var delta = positions.x - this.get('fromX');
+		isOverThresholdX: function() {
+			var attr = this.attributes;
+			var delta = attr.curX - attr.fromX;
 			return (delta > this.THRESHOLD_X || delta < -this.THRESHOLD_X);
 		},
 
 		/**
 		 * Whether specified positions overcome the threshold.
-		 * @param {Number} positions.y
 		 * @see #THRESHOLD_Y
 		 */
-		isOverThresholdY: function(positions) {
-			var delta = positions.y - this.get('fromY');
+		isOverThresholdY: function() {
+			var attr = this.attributes;
+			var delta = attr.curY - attr.fromY;
 			return (delta > this.THRESHOLD_Y || delta < -this.THRESHOLD_Y);
 		}
 	});
@@ -121,8 +157,9 @@ on:h.on,trigger:h[e]}),t}();
 
 			// listen models
 			var status = this.status;
-			this.listenTo(status, 'change:movingX', this.status_onchange_movingX);
-			this.listenTo(status, 'change:movingY', this.status_onchange_movingY);
+			this.listenTo(status, 'change:phase', this.status_onchange_phase);
+			this.listenTo(status, 'change:curX', this.status_onchange_curX);
+			this.listenTo(status, 'change:deltaX', this.status_onchange_deltaX);
 
 			// listen elements
 			var $document = $(document);
@@ -161,7 +198,10 @@ on:h.on,trigger:h[e]}),t}();
 				top: pos.top
 			});
 
-			this.status.set({ minLeft:-this.$rowTools.outerWidth() });
+			this.status.set({
+				maxLeft: 0,
+				minLeft: -this.$rowTools.outerWidth()
+			});
 		},
 
 		/**
@@ -199,11 +239,12 @@ on:h.on,trigger:h[e]}),t}();
 		 * @param {Number} positions.x
 		 * @param {Number} positions.y
 		 */
-		updateMovingX: function(positions) {
-			var minLeft = this.status.get('minLeft');
-			var maxLeft = this.status.get('maxLeft');
-			var delta = positions.x - this.status.get('fromX');
-			var left = Math.min(Math.max(delta, minLeft), maxLeft);
+		_updateLeft: function() {
+			var status = this.status;
+			var minLeft = status.get('minLeft');
+			var maxLeft = status.get('maxLeft');
+			var dx = status.get('deltaX');
+			var left = Math.min(Math.max(dx, minLeft), maxLeft);
 			this.$el.css({ transform:'translateX(' + left + 'px)' });
 		},
 
@@ -231,62 +272,114 @@ on:h.on,trigger:h[e]}),t}();
 			return positions;
 		},
 
-		status_onchange_movingX: function(model, value) {
-			if (value) {
-				this.status.set({ premoving:false });
+		status_onchange_phase: function(status, phase) {
+			var attr = status.attributes;
+
+			if (phase === status.PHASE_WAITING) {
+				status.set({
+					curX: NaN,
+					curY: NaN,
+					deltaX: 0,
+					fromX: NaN,
+					fromY: NaN
+				});
+			}
+			else if (phase === status.PHASE_PREACTION) {
+			}
+			else if (phase === status.PHASE_SWIPING) {
+				this._initDelete();
+				status.set({
+					fromX: attr.curX,
+					fromY: attr.curY
+				});
+			}
+			else if (phase === status.PHASE_SWIPEDOVER) {
 			}
 		},
 
-		status_onchange_movingY: function(model, value) {
-			if (value) {
-				this.stopMoving();
+		status_onchange_curX: function(status, value) {
+			if (status.isPreaction()) {
+				if (status.isOverThresholdX()) {
+					status.set({ phase:status.PHASE_SWIPING });
+				}
+				else if (status.isOverThresholdY()) {
+					status.set({ phase:status.PHASE_WAITING });
+				}
 			}
+			else if (status.isSwiping()) {
+				var attr = status.attributes;
+				var dx = attr.curX - attr.fromX;
+				status.set({ deltaX:dx });
+			}
+		},
+
+		status_onchange_deltaX: function(status, value) {
+			this._updateLeft();
 		},
 
 		el_onmousedown: function(event) {
 			event.preventDefault();
 			var positions = this.getPositionsFromEvent(event);
-			this.startPremoving(positions);
+			var status = this.status;
+
+			status.set({
+				fromX: positions.x,
+				fromY: positions.y,
+				phase: status.PHASE_PREACTION
+			});
 		},
 
 		document_onmousemove: function(event) {
-			if (this.status.get('premoving')) {
-				var positions = this.getPositionsFromEvent(event);
-				this.updatePremoving(positions);
-			}
-			else if (this.status.get('movingX')) {
-				var positions = this.getPositionsFromEvent(event);
-				this.updateMovingX(positions);
+			var status = this.status;
+			var position;
+
+			if (status.isPreaction() || status.isSwiping()) {
+				positions = this.getPositionsFromEvent(event);
+				status.set({
+					curX: positions.x,
+					curY: positions.y
+				});
 			}
 		},
 
 		document_onmouseup: function(event) {
-			if (this.status.get('premoving') || this.status.get('movingX')) {
-				this.stopMoving();
-			}
+			var status = this.status;
+
+			status.set({ phase:status.PHASE_WAITING });
 		},
 
 		el_ontouchstart: function(event) {
 			var positions = this.getPositionsFromEvent(event);
-			this.startPremoving(positions);
+			var status = this.status;
+
+			status.set({
+				fromX: positions.x,
+				fromY: positions.y,
+				phase: status.PHASE_PREACTION
+			});
 		},
 
 		document_ontouchmove: function(event) {
-			if (this.status.get('premoving')) {
-				var positions = this.getPositionsFromEvent(event);
-				this.updatePremoving(positions);
-			}
-			else if (this.status.get('movingX')) {
-				event.preventDefault();
-				var positions = this.getPositionsFromEvent(event);
-				this.updateMovingX(positions);
+			var status = this.status;
+			var position;
+
+			if (status.isPreaction() || status.isSwiping()) {
+				positions = this.getPositionsFromEvent(event);
+				status.set({
+					curX: positions.x,
+					curY: positions.y
+				});
+
+				if (status.isPreaction() || status.isSwiping()) {
+					event.preventDefault();
+				}
 			}
 		},
 
 		document_ontouchend: function(event) {
-			if (this.status.get('premoving') || this.status.get('movingX')) {
-				this.stopMoving();
-			}
+			var status = this.status;
+
+			status.set({ phase:status.PHASE_WAITING });
 		}
 	});
 
