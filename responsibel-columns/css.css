@@ -1,0 +1,60 @@
+/**
+ * .section
+ * + .heading
+ * + .blocks (display:flex)
+ *   + .block
+ *     + .heading-lv2
+ *     + .table, .bigTable (column-count)
+ *       + .row *
+ */
+.section {
+	--base-margin: 0.5rem;
+	--half-margin: calc(var(--base-margin) / 2);
+	--row-height: 1rem;
+	--row-length: 3;
+
+	background-color: #f0f0f0;
+	border: 1px solid #999;
+	border-radius: 4px;
+	margin: 1em;
+	padding: var(--half-margin);
+}
+.heading {
+	margin: 0 0 0.5rem;
+}
+.heading-lv2 {
+	font-family: sans-serif;
+	font-size: 1em;
+	margin: 0;
+}
+.blocks {
+	display: flex;
+	margin-bottom: calc(var(--half-margin) * -1);
+	margin-left: var(--half-margin);
+	margin-right: calc(var(--half-margin) * -1);
+}
+.block,
+.doubleBlock {
+	background-color: #fff;
+	border: 1px solid #999;
+	border-radius: 4px;
+	margin: 0 var(--base-margin) var(--base-margin) 0;
+	min-height: 1em;
+	padding: var(--base-margin);
+}
+.block {
+	flex-grow: 1;
+}
+.doubleBlock {
+	flex-grow: 2;
+}
+.table {
+	height: calc(var(--row-height) * var(--row-length));
+}
+.doubleBlock .table {
+	-moz-column-count: 2;
+}
+.row {
+	height: var(--row-height);
+	line-height: var(--row-height);
+}
