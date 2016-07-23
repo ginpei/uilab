@@ -51,6 +51,7 @@
 }
 .doubleBlock .table {
 	-moz-column-count: 2;
+	column-count: 2;
 }
 .row {
 	height: var(--row-height);
