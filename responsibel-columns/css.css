@@ -29,6 +29,7 @@
 }
 .blocks {
 	display: flex;
+	flex-wrap: wrap;
 	margin: calc(var(--half-margin) * -1);
 }
 .block,
@@ -56,4 +57,5 @@
 .row {
 	height: var(--row-height);
 	line-height: var(--row-height);
+	min-width: 100px;
 }
