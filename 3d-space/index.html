@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>3D</title>
+		<link rel="stylesheet" href="css.css" />
+	</head>
+	<body>
+		<div id="app" class="app" v-bind:now="null">
+			<cosmo
+				v-bind:boxes="boxes"
+				v-bind:now="now"
+				v-bind:since="since"
+				v-bind:stopping="stopping"
+			></cosmo>
+		<console
+			v-bind:on-add="onAdd"
+			v-bind:on-reduce="onReduce"
+			v-bind:on-stop="onStop"
+		></console>
+		</div>
+
+		<script id="template-cosmo" type="text/x-template">
+			<div class="cosmo-container">
+				<div v-bind:style="{ transform: transform }" class="cosmo-space">
+					<box v-bind:x="0" v-bind:y="0" v-bind:z="0" class="box--regular"></box>
+					<box v-for="box in boxes" v-bind:x="box.x" v-bind:y="box.y" v-bind:z="box.z"></box>
+				</div>
+			</div>
+		</script>
+		<script id="template-box" type="text/x-template">
+			<div class="box" v-bind:style="{ transform: transform }">
+				<div class="cosmo-object surface surface-1">Feel Cosmo Inside You</div>
+				<div class="cosmo-object surface surface-2">May The Force Be With You</div>
+				<div class="cosmo-object surface surface-3">3</div>
+				<div class="cosmo-object surface surface-4">4</div>
+				<div class="cosmo-object surface surface-5">5</div>
+				<div class="cosmo-object surface surface-6">6</div>
+			</div>
+		</script>
+		<script id="template-console" type="text/x-template">
+			<div class="console">
+				<button v-on:click="add_onClick">Add</button>
+				<button v-on:click="reduce_onClick">Reduce</button>
+				<button v-on:click="stop_onClick">Stop</button>
+			</div>
+		</script>
+
+		<script src="vue.js"></script>
+		<script src="js.js"></script>
+	</body>
+</html>
