@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Tab UI with jQuery and Vue</title>
+		<link rel="stylesheet" href="css.css" />
+	</head>
+	<body>
+
+		<h1>Simple jQuery</h1>
+		<div id="app-jquery">
+			<div class="tab-nav">
+				<a class="tab-button" href="#jquery">jQuery</a>
+				<a class="tab-button" href="#vue">Vue</a>
+			</div>
+			<div class="tab-contents">
+				<div id="jquery" class="tab-content">
+					<img class="logo" src="jquery-logo.gif" />
+					<h1>jQuery</h1>
+					<h2>What is jQuery?</h2>
+					<p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.</p>
+				</div>
+				<div id="vue" class="tab-content">
+					<img class="logo" src="vue-logo.png" />
+					<h1>Vue</h1>
+					<h2>Approachable</h2>
+					<p>Already know HTML, CSS and JavaScript? Read the guide and start building things in no time!</p>
+					<h2>Versatile</h2>
+					<p>Simple, minimal core with an incrementally adoptable stack that can handle apps of any scale.</p>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<h1>Better jQuery</h1>
+		<div id="app-jquery2">
+			<div class="tab-nav">
+				<a class="tab-button" href="#jquery">jQuery</a>
+				<a class="tab-button" href="#vue">Vue</a>
+			</div>
+			<div class="tab-contents">
+				<div id="jquery" class="tab-content">
+					<img class="logo" src="jquery-logo.gif" />
+					<h1>jQuery</h1>
+					<h2>What is jQuery?</h2>
+					<p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.</p>
+				</div>
+				<div id="vue" class="tab-content">
+					<img class="logo" src="vue-logo.png" />
+					<h1>Vue</h1>
+					<h2>Approachable</h2>
+					<p>Already know HTML, CSS and JavaScript? Read the guide and start building things in no time!</p>
+					<h2>Versatile</h2>
+					<p>Simple, minimal core with an incrementally adoptable stack that can handle apps of any scale.</p>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<h1>Simple Vue</h1>
+		<div id="app">
+			<div class="tab-nav">
+				<a v-bind:class="{ 'tab-button--active': contentId==='jquery' }" v-on:click.prevent="jquery_onClick" class="tab-button" href="#jquery">jQuery</a>
+				<a v-bind:class="{ 'tab-button--active': contentId==='vue' }" v-on:click.prevent="vue_onClick" class="tab-button" href="#vue">Vue</a>
+			</div>
+			<div class="tab-contents">
+				<div v-show="contentId==='jquery'" id="jquery" class="tab-content">
+					<img class="logo" src="jquery-logo.gif" />
+					<h1>jQuery</h1>
+					<h2>What is jQuery?</h2>
+					<p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.</p>
+				</div>
+				<div v-show="contentId==='vue'" id="vue" class="tab-content">
+					<img class="logo" src="vue-logo.png" />
+					<h1>Vue</h1>
+					<h2>Approachable</h2>
+					<p>Already know HTML, CSS and JavaScript? Read the guide and start building things in no time!</p>
+					<h2>Versatile</h2>
+					<p>Simple, minimal core with an incrementally adoptable stack that can handle apps of any scale.</p>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<h1>Better Vue</h1>
+		<div id="app2">
+			<div class="tab-nav">
+				<tab-button
+					v-bind:selected-id="selectedId"
+					v-bind:on-select="selectedId_onChange"
+					id="jquery"
+				>jQuery</tab-button>
+				<tab-button
+					v-bind:selected-id="selectedId"
+					v-bind:on-select="selectedId_onChange"
+					id="vue"
+				>Vue</tab-button>
+			</div>
+			<div class="tab-contents">
+				<tab-content
+					v-bind:selected-id="selectedId"
+					id="jquery"
+				>
+					<img class="logo" src="jquery-logo.gif" />
+					<h1>jQuery</h1>
+					<h2>What is jQuery?</h2>
+					<p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.</p>
+				</tab-content>
+				<tab-content
+					v-bind:selected-id="selectedId"
+					id="vue"
+				>
+					<img class="logo" src="vue-logo.png" />
+					<h1>Vue</h1>
+					<h2>Approachable</h2>
+					<p>Already know HTML, CSS and JavaScript? Read the guide and start building things in no time!</p>
+					<h2>Versatile</h2>
+					<p>Simple, minimal core with an incrementally adoptable stack that can handle apps of any scale.</p>
+				</tab-content>
+			</div>
+		</div>
+		<script id="template-tab-button" type="text/x-template">
+			<a
+				v-bind:class="{ 'tab-button--active': selectedId===id }"
+				v-bind:href="href"
+				v-on:click.prevent="button_onClick"
+				class="tab-button"
+			><slot /></a>
+		</script>
+		<script id="template-tab-content" type="text/x-template">
+			<div v-show="selectedId===id" class="tab-content">
+				<slot />
+			</div>
+		</script>
+
+		<script src="jquery.min.js"></script>
+		<script src="vue.min.js"></script>
+		<script src="js.js"></script>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+.tab-nav {
+	padding: 0 1em;
+}
+.tab-button {
+	background-color: #fff;
+	border: 1px solid #999;
+	border-bottom-style: none;
+	color: #f00;
+	padding: 0 0.4em;
+	text-decoration: none;
+}
+.tab-button--active {
+	color: #000;
+	padding-bottom: 2px;
+}
+.tab-content {
+	border: 1px solid #999;
+	padding: 1em;
+}
+.tab-content--active {
+}
+
+#app-jquery2 .tab-content {
+	display: none;
+}
+#app-jquery2 .tab-content--active {
+	display: block;
+}
+
+.logo {
+	float: right;
+	max-height: 100px;
+	max-width: 200px;
+}
