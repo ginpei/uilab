@@ -1,0 +1,61 @@
+.cosmo {
+	height: 200px;
+	overflow: hidden;
+	perspective: 500px;
+	position: relative;
+}
+
+.box {
+	height: 100px;
+	left: calc(50% - 50px);
+	position: absolute;
+	transform-style: preserve-3d;
+	top: calc(50% - 50px);
+	width: 100px;
+}
+.box--regular {
+	animation: regularBox 5s infinite linear;
+}
+.surface {
+	background-color: rgba(0, 127, 255, 0.4);
+	border: 1px solid #00f;
+	box-sizing: border-box;
+	color: #fff;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transition: transform 500ms;
+	width: 100%;
+}
+.box--regular .surface {
+	background-color: rgba(127, 255, 0, 0.4);
+}
+.surface-1 {
+	background-image: url("./vue-logo.png");
+	background-position: center center;
+	background-size: contain;
+	transform: translateZ(50px);
+}
+.surface-2 {
+	transform: rotateX(-90deg) translateZ(50px);
+}
+.surface-3 {
+	transform: rotateX(-180deg) translateZ(50px);
+}
+.surface-4 {
+	transform: rotateX(-270deg) translateZ(50px);
+}
+.surface-5 {
+	transform: rotateY(90deg) translateZ(50px);
+}
+.surface-6 {
+	transform: rotateY(-90deg) translateZ(50px);
+}
+
+.console {
+	text-align: center;
+}
+.console-deg {
+	width: 90%;
+}

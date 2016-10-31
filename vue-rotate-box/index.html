@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Rotate Box by Vue</title>
+		<link rel="stylesheet" href="css.css" />
+	</head>
+	<body>
+
+		<div id="app">
+			<p>{{deg}}deg</p>
+			<div class="cosmo">
+				<box v-bind:deg="deg"></box>
+			</div>
+			<console
+				v-bind:deg="deg"
+				v-bind:deg-on-change="deg_onChange"
+			></console>
+		</div>
+
+		<script id="template-box" type="text/x-template">
+			<div v-bind:style="style" class="box">
+				<div class="surface surface-1">Vue</div>
+				<div class="surface surface-2">May The Force Be With You</div>
+				<div class="surface surface-3">3</div>
+				<div class="surface surface-4">4</div>
+				<div class="surface surface-5">5</div>
+				<div class="surface surface-6">6</div>
+			</div>
+		</script>
+
+		<script id="template-console" type="text/x-template">
+			<div class="console">
+				<input
+					v-model.number="deg"
+					v-on:input="deg_onChange"
+					class="console-deg" type="range" min="-720" max="720"
+				/>
+			</div>
+		</script>
+
+		<script src="vue.min.js"></script>
+		<script src="js.js"></script>
+	</body>
+</html>
