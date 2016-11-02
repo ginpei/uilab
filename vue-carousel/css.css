@@ -36,6 +36,9 @@
 	text-align: center;
 	width: 1.5em;
 }
+.ui-carousel-button--active {
+	background-color: #8be;
+}
 .ui-carousel-button:hover {
 	background-color: #cef;
 }

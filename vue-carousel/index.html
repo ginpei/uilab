@@ -31,6 +31,7 @@
 					<carousel-button
 						v-for="i in pages.length"
 						v-bind:index="i-1"
+						v-bind:pos="pos"
 						v-bind:on-click="button_onClick"
 					></carousel-button>
 				</div>
@@ -44,7 +45,11 @@
 		</script>
 
 		<script id="template-carousel-button" type="text/x-template">
-			<span v-on:click="button_onClick" class="ui-carousel-button">{{label}}</span>
+			<span
+				v-bind:class="classList"
+				v-on:click="button_onClick"
+				class="ui-carousel-button"
+			>{{label}}</span>
 		</script>
 
 		<script src="vue.min.js"></script>

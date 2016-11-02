@@ -58,9 +58,15 @@ Vue.component('carousel-button', {
 	template: template('carousel-button'),
 	props: [
 		'index',
+		'pos',
 		'onClick',
 	],
 	computed: {
+		classList: function() {
+			return {
+				'ui-carousel-button--active': (this.index === this.pos),
+			};
+		},
 		label: function() {
 			return this.index + 1;
 		},
