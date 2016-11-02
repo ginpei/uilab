@@ -1,33 +1,39 @@
 Vue.component('carousel', {
 	template: template('carousel'),
 	props: [
-		'interbal',
+		'interval',
 	],
 	data: function() {
 		return {
 			pages: [],
 			pos: 0,
-			running: false,
+			running: true,
 		};
 	},
 	mounted: function() {
 		this.pages = this.$el.querySelectorAll('.ui-carousel-page');
+		if (this.running) {
+			this.goTo(0);
+		}
 	},
 	methods: {
-		start: function() {
-			this.running = true;
-		},
 		goNext: function() {
 			this.goTo(this.pos + 1);
 		},
+
 		goTo: function(pos) {
+			window.clearTimeout(this._tmNext);
+
 			this.pos = pos % this.pages.length;
+
+			let interval = Number(this.interval) || 5000;
 			this._tmNext = setTimeout(()=>{
 				if (this.running) {
 					this.goNext();
 				}
-			}, Number(this.interval) || 5000);
+			}, interval);
 		},
+
 		button_onClick: function(event, index) {
 			this.goTo(index);
 		},
