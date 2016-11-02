@@ -1,0 +1,51 @@
+/**
+ * UI
+ */
+.ui-carousel-container {
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.ui-carousel-row {
+	height: 100%;
+	transition: transform 300ms;
+	white-space: nowrap;
+	width: 100%;
+}
+.ui-carousel-page {
+	display: inline-block;
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+.ui-carousel-buttonList {
+	bottom: 10px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+.ui-carousel-button {
+	background-color: #9cf;
+	border-radius: 50%;
+	cursor: pointer;
+	display: inline-block;
+	height: 1.5em;
+	line-height: 1.5em;
+	margin: 0.1em;
+	text-align: center;
+	width: 1.5em;
+}
+.ui-carousel-button:hover {
+	background-color: #cef;
+}
+
+/**
+ * Decoration
+ */
+.ui-carousel-container {
+	height: 200px;
+}
+.ui-carousel-page {
+	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+}

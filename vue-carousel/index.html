@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue Carousel</title>
+		<link rel="stylesheet" href="css.css" />
+	</head>
+	<body>
+		<div id="app">
+			<carousel>
+				<article slot="page" class="ui-carousel-page">
+					<h1>First Page</h1>
+				</article>
+				<article slot="page" class="ui-carousel-page">
+					<h1>Second Page</h1>
+					<p>Adipisicing laboriosam voluptatum perferendis dolore a a Itaque odit veritatis in rem itaque ex aliquam. Provident fuga debitis debitis assumenda velit Inventore sit cupiditate ullam iusto distinctio Perferendis adipisci quasi?</p>
+				</article>
+				<article slot="page" class="ui-carousel-page">
+					<h1>Third Page</h1>
+					<p>Adipisicing laboriosam voluptatum perferendis dolore a a Itaque odit veritatis in rem itaque ex aliquam. Provident fuga debitis debitis assumenda velit Inventore sit cupiditate ullam iusto distinctio Perferendis adipisci quasi?</p>
+				</article>
+			</carousel>
+		</div>
+
+		<script id="template-carousel" type="text/x-template">
+			<div class="ui-carousel-container">
+				<carousel-row v-bind:pos="pos">
+					<slot name="page"></slot>
+				</carousel-row>
+				<div class="ui-carousel-buttonList">
+					<carousel-button
+						v-for="i in pages.length"
+						v-bind:index="i-1"
+						v-bind:on-click="button_onClick"
+					></carousel-button>
+				</div>
+			</div>
+		</script>
+
+		<script id="template-carousel-row" type="text/x-template">
+			<div v-bind:style="style" class="ui-carousel-row">
+				<slot></slot>
+			</div>
+		</script>
+
+		<script id="template-carousel-button" type="text/x-template">
+			<span v-on:click="button_onClick" class="ui-carousel-button">{{label}}</span>
+		</script>
+
+		<script src="vue.min.js"></script>
+		<script src="js.js"></script>
+	</body>
+</html>
