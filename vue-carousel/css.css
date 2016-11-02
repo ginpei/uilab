@@ -47,5 +47,5 @@
 	height: 200px;
 }
 .ui-carousel-page {
-	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+	box-shadow: 0 0 50px rgba(0,0,0,0.1) inset;
 }
