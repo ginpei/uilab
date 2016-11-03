@@ -19,8 +19,7 @@
 
 	function render() {
 		curType = getType();
-		elContainer.classList.remove('box-shadow');
-		elContainer.classList.remove('radial-gradient');
+		elTypes.forEach(v=>elContainer.classList.remove(v.value));
 		elContainer.classList.add(curType);
 	}
 
