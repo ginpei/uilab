@@ -32,6 +32,9 @@
 	background-size: 100%;
 	transform: translateZ(0.1px);
 }
+.front h1 {
+	background-color: rgba(0,0,0,0.2);
+}
 .back {
 	background-color: #9cf;
 	transform: translateZ(-0.1px) rotateY(180deg) translateY(-100%);
