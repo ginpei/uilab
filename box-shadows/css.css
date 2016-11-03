@@ -21,11 +21,15 @@
 	box-shadow: 0 0 50px rgba(0,0,0,0.2) inset;
 }
 .radial-gradient .surface {
-	background-image: radial-gradient(transparent, transparent 60%, rgba(0,0,0,0.1));
+	background-image: radial-gradient(transparent, transparent 60%, rgba(0,0,0,0.1)), url("ginpei.png");
 }
 
 .front {
 	background-color: #f9f9f9;
+	background-image: url("ginpei.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
 	transform: translateZ(0.1px);
 }
 .back {
