@@ -1,12 +1,34 @@
 .box {
-	background-color: #f9f9f9;
 	display: inline-block;
 	height: 200px;
-	width: 400px;
+	transform-style: preserve-3d;
+	transform: perspective(1000px) rotateY(0deg);
+	transition: transform 800ms;
+	width: 200px;
+	z-index: 1;  /* leave from rendering involving during animation */
 }
-.box-shadow .box {
+.box:hover {
+	transform: perspective(1000px) rotateY(180deg);
+}
+
+.surface {
+	border-radius: 4px;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+.box-shadow .surface {
 	box-shadow: 0 0 50px rgba(0,0,0,0.2) inset;
 }
-.radial-gradient .box {
+.radial-gradient .surface {
 	background-image: radial-gradient(transparent, transparent 60%, rgba(0,0,0,0.1));
+}
+
+.front {
+	background-color: #f9f9f9;
+	transform: translateZ(0.1px);
+}
+.back {
+	background-color: #9cf;
+	transform: translateZ(-0.1px) rotateY(180deg) translateY(-100%);
 }
