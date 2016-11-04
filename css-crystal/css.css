@@ -3,8 +3,9 @@ body {
 	color: #fff;
 }
 .crystal {
-	animation: fade-in 1s;
+	animation: fade-in 3s;
 	height: 200px;
+	margin: auto;
 	width: 50px;
 }
 .crystal-group {
@@ -67,12 +68,38 @@ body {
 	width: 100%;
 }
 
+.circle-wrapper {
+	animation: circle-scale-in 1s;
+	height: 500px;
+	margin: auto;
+	width: 500px;
+}
+.circle {
+	animation: circle-rotate 30s infinite linear;
+	background-image: url("circle.png");
+	background-size: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	width: 100%;
+}
+
 @keyframes fade-in {
 	  0% { opacity: 0; transform: translateY(50px); }
+	 30% { opacity: 0; transform: translateY(50px); }
 	100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes rotate {
 	  0% { transform: rotateX(-10deg) rotateY(  0deg); }
 	100% { transform: rotateX(-10deg) rotateY(360deg); }
+}
+
+@keyframes circle-scale-in {
+	  0% { transform: scale(0); }
+	100% { transform: scale(1); }
+}
+
+@keyframes circle-rotate {
+	  0% { transform: rotateX(80deg) rotateZ(  0deg); }
+	100% { transform: rotateX(80deg) rotateZ(360deg); }
 }
