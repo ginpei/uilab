@@ -3,12 +3,17 @@ body {
 	color: #fff;
 }
 .crystal {
-	animation: rotate 8s infinite linear;
+	animation: fade-in 1s;
 	height: 200px;
+	width: 50px;
+}
+.crystal-group {
+	animation: rotate 4s infinite linear;
+	height: 100%;
 	position: relative;
 	transform: perspective(1000px) rotateY(0deg);
 	transform-style: preserve-3d;
-	width: 50px;
+	width: 100%;
 }
 .crystal-side {
 	height: 100%;
@@ -60,6 +65,11 @@ body {
 	transform: rotateX(-45deg);
 	transform-origin: 50% 0;
 	width: 100%;
+}
+
+@keyframes fade-in {
+	  0% { opacity: 0; transform: translateY(50px); }
+	100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes rotate {
