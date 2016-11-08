@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Vuex</title>
+		<link rel="stylesheet" href="css.css">
+	</head>
+	<body>
+		<div id="app">
+			<todo-form></todo-form>
+			<todo-list v-bind:list="tasks"></todo-list>
+		</div>
+
+		<script id="template-todo-form" type="text/x-template">
+			<form v-on:submit="form_onSubmit" class="todo-form">
+				<input v-model="name" type="text" />
+				<button>Add</button>
+			</form>
+		</script>
+
+		<script id="template-todo-list" type="text/x-template">
+			<div class="todo-list">
+				<h1>TODO List</h1>
+				<todo-item v-for="item in list" v-bind:item="item"></todo-item>
+			</div>
+		</script>
+
+		<script id="template-todo-item" type="text/x-template">
+			<div class="item">
+				<span class="item-name">{{item.name}}</span>
+			</div>
+		</script>
+
+		<script src="vue.js"></script>
+		<script src="vuex.js"></script>
+		<script src="js.js"></script>
+	</body>
+</html>
